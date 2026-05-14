@@ -175,11 +175,5 @@ export function createInvestScene(
     return ctx.scene.leave();
   });
 
-  // Fallback for orphaned messages
-  scene.on('message', async (ctx) => {
-    await ctx.reply('Sesión expirada. Esperá el recordatorio del lunes o usá /test para probar.');
-    return ctx.scene.leave();
-  });
-
   return scene;
 }
