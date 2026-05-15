@@ -18,7 +18,7 @@ Bot de Telegram que te pregunta periódicamente si querés invertir y, si acept�
 
 - [Node.js](https://nodejs.org/) v18 o superior
 - Una cuenta en [Wallbit](https://wallbit.io) con API key
-- Un bot de Telegram (lo creás en 2 minutos con [@BotFather](https://t.me/BotFather))
+- Un bot de Telegram (Lo creas facilmente con [@BotFather](https://t.me/BotFather))
 
 ---
 
@@ -27,7 +27,7 @@ Bot de Telegram que te pregunta periódicamente si querés invertir y, si acept�
 ### 1. Clonar e instalar dependencias
 
 ```bash
-git clone <url-del-repo>
+git clone git@github.com:deniseurbanija/wallbit-trades-bot.git
 cd wallbit-api
 npm install
 ```
@@ -38,7 +38,7 @@ npm install
 2. Escribí `/newbot` y seguí los pasos
 3. Copiá el token que te da (formato: `123456789:AAH...`)
 
-Para obtener tu Chat ID, mandá cualquier mensaje a [@userinfobot](https://t.me/userinfobot).
+💡Para obtener tu Chat ID, mandá cualquier mensaje a [@userinfobot](https://t.me/userinfobot).
 
 ### 3. Configurar variables de entorno
 
