@@ -29,7 +29,7 @@ export class TelegramService implements OnModuleInit, OnModuleDestroy {
     this.bot.use(stage.middleware());
 
     this.bot.command('start', (ctx) =>
-      ctx.reply('Hola! Soy tu asistente de inversiones Wallbit. Cada lunes te preguntaré si querés invertir.'),
+      ctx.reply('Hola! Soy tu asistente de inversiones con Wallbit. Cada lunes te voy a preguntar si querés invertir.'),
     );
 
     if (this.config.get('NODE_ENV') !== 'production') {
@@ -46,7 +46,7 @@ export class TelegramService implements OnModuleInit, OnModuleDestroy {
 
     this.bot.action('invest-no', async (ctx) => {
       await ctx.answerCbQuery();
-      await ctx.editMessageText('Entendido! Te preguntaré la próxima semana. 📅');
+      await ctx.editMessageText('Entendido! Te lo vuelvo a preguntar la próxima semana. 📅');
     });
 
     this.bot.on('text', async (ctx) => {
