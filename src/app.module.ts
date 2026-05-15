@@ -9,7 +9,5 @@ import { TelegramModule } from './telegram/telegram.module';
     ScheduleModule.forRoot(),
     TelegramModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

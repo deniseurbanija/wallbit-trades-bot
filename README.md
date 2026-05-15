@@ -1,98 +1,106 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Wallbit Investment Bot
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Bot de Telegram que te pregunta periódicamente si querés invertir y, si aceptás, ejecuta la compra directamente desde la [API de Wallbit](https://api.wallbit.io).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## ¿Qué hace?
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Te manda un mensaje de Telegram preguntando si querés invertir
+- Si decís que sí, te pide el monto y el símbolo (ej: `100 SPY`)
+- Valida que el símbolo exista y que tengas saldo suficiente
+- Muestra un resumen y ejecuta la compra si confirmás
+- Por defecto te pregunta **todos los lunes a las 9:00 AM** (horario de Argentina)
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+## Requisitos
 
-## Compile and run the project
+- [Node.js](https://nodejs.org/) v18 o superior
+- Una cuenta en [Wallbit](https://wallbit.io) con API key
+- Un bot de Telegram (lo creás en 2 minutos con [@BotFather](https://t.me/BotFather))
+
+---
+
+## Setup
+
+### 1. Clonar e instalar dependencias
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone <url-del-repo>
+cd wallbit-api
+npm install
 ```
 
-## Run tests
+### 2. Crear tu bot de Telegram
+
+1. Abrí [@BotFather](https://t.me/BotFather) en Telegram
+2. Escribí `/newbot` y seguí los pasos
+3. Copiá el token que te da (formato: `123456789:AAH...`)
+
+Para obtener tu Chat ID, mandá cualquier mensaje a [@userinfobot](https://t.me/userinfobot).
+
+### 3. Configurar variables de entorno
+
+Copiá el archivo de ejemplo y completá los valores:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cp .env.example .env
 ```
 
-## Deployment
+```env
+WALLBIT_API_KEY=tu_api_key_de_wallbit
+TELEGRAM_BOT_TOKEN=el_token_de_tu_bot
+TELEGRAM_CHAT_ID=tu_chat_id
+```
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 4. Correr el bot
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## Cambiar cuándo llega el reminder
 
-Check out a few resources that may come in handy when working with NestJS:
+Por defecto el bot te pregunta **todos los lunes a las 9:00 AM (Argentina, UTC-3)**.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Para cambiarlo, editá el archivo [`src/telegram/scheduler/reminder.scheduler.ts`](src/telegram/scheduler/reminder.scheduler.ts):
 
-## Support
+```typescript
+@Cron('0 9 * * 1', { timeZone: 'America/Argentina/Buenos_Aires' })
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+El formato es: `minuto hora día-del-mes mes día-de-la-semana`
 
-## Stay in touch
+| Quiero que me llegue...       | Cron expression |
+|-------------------------------|-----------------|
+| Lunes a las 9:00 AM (default) | `0 9 * * 1`     |
+| Todos los días a las 8:00 AM  | `0 8 * * *`     |
+| Primer día de cada mes        | `0 9 1 * *`     |
+| Viernes a las 18:00           | `0 18 * * 5`    |
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Para cambiar la zona horaria, reemplazá `America/Argentina/Buenos_Aires` por la tuya. Podés consultar la lista completa en [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (ejemplos: `America/New_York`, `Europe/Madrid`, `UTC`).
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Comandos del bot
+
+| Comando | Descripción |
+|---------|-------------|
+| `/start` | Muestra el mensaje de bienvenida |
+| `/test`  | Dispara el reminder de inmediato (solo en modo desarrollo) |
+
+---
+
+## Estructura del proyecto
+
+```
+src/
+  telegram/
+    scenes/invest.scene.ts           ← flujo de conversación (wizard)
+    wallbit/wallbit.service.ts       ← llamadas a la API de Wallbit
+    scheduler/reminder.scheduler.ts  ← cron del reminder
+    telegram.service.ts              ← bot de Telegram
+```
