@@ -42,12 +42,12 @@ export function createInvestScene(
 
     // Step 1: Parse input, validate symbol, show preview
     async (ctx) => {
-      if (!('text' in ctx.message!)) {
+      if (!ctx.message || !('text' in ctx.message)) {
         await ctx.reply('Enviá el monto y símbolo como texto. Ejemplo: <code>100 SPY</code>', { parse_mode: 'HTML' });
         return;
       }
 
-      const text = (ctx.message as any).text as string;
+      const text = ctx.message.text;
       const match = INPUT_REGEX.exec(text.trim());
 
       if (!match) {

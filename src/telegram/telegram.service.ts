@@ -57,6 +57,15 @@ export class TelegramService implements OnModuleInit, OnModuleDestroy {
 
     void this.bot.launch();
     this.logger.log('Telegram bot started.');
+
+    if (this.config.get('NODE_ENV') !== 'production') {
+      setTimeout(() => {
+        void this.sendWeeklyReminder().catch((err) =>
+          this.logger.error('Auto startup reminder failed', err),
+        );
+      }, 60_000);
+      this.logger.log('Auto reminder scheduled in 60 seconds.');
+    }
   }
 
   async onModuleDestroy(): Promise<void> {
