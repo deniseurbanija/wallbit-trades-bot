@@ -81,13 +81,14 @@ export class WallbitService {
       return res.data.data;
     } catch (err: any) {
       const status = err?.response?.status;
+      const responseBody = err?.response?.data;
+      this.logger.error(`executeTrade failed [${status}] request=${JSON.stringify(request)} response=${JSON.stringify(responseBody)}`);
       if (status === 412) {
         throw new WallbitApiException('Tu cuenta requiere verificación KYC antes de operar.', 412);
       }
       if (status === 422) {
-        throw new WallbitApiException('Parámetros de trade inválidos. Verificá el símbolo y el monto.', 422);
+        throw new WallbitApiException('La solicitud no puede ser procesada en este momento. Intentá más tarde.', 422);
       }
-      this.logger.error('executeTrade failed', err);
       throw new WallbitApiException('Error al ejecutar el trade. Intentá más tarde.', status);
     }
   }
